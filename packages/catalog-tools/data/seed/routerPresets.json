@@ -1,0 +1,59 @@
+[
+  {
+    "id": "default",
+    "label": "Default tiers (Groq first)",
+    "isDefault": true,
+    "version": 1,
+    "description": "Short prompts go to economy, keyword-heavy reasoning prompts to advanced, tool use to at least standard.",
+    "tiers": {
+      "economy": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-20b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o-mini"
+        },
+        {
+          "providerId": "anthropic",
+          "modelId": "claude-3-5-haiku-20241022"
+        }
+      ],
+      "standard": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-120b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o"
+        }
+      ],
+      "advanced": [
+        {
+          "providerId": "groq",
+          "modelId": "qwen/qwen3.8-27b"
+        },
+        {
+          "providerId": "anthropic",
+          "modelId": "claude-3-5-sonnet-20241022"
+        }
+      ]
+    },
+    "rules": {
+      "maxCharsForEconomy": 600,
+      "advancedKeywords": [
+        "analyze",
+        "architecture",
+        "debug",
+        "prove",
+        "refactor",
+        "step by step",
+        "trade-offs"
+      ],
+      "needsToolsMinTier": "standard",
+      "defaultTier": "standard"
+    }
+  }
+]

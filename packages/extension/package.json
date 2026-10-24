@@ -1,0 +1,85 @@
+{
+  "name": "token-optimizer",
+  "displayName": "Token Optimizer",
+  "description": "VS Code extension for LLM cost estimation and optimization",
+  "version": "0.1.0",
+  "publisher": "token-optimizer",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Education"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "token-optimizer-sidebar",
+          "title": "Token Optimizer",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "token-optimizer-sidebar": [
+        {
+          "type": "webview",
+          "id": "tokenOptimizer",
+          "name": "Token Optimizer"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tokenOptimizer.openPanel",
+        "title": "Token Optimizer: Open Optimizer Panel"
+      }
+    ],
+    "configuration": {
+      "title": "Token Optimizer",
+      "properties": {
+        "tokenOptimizer.catalogApiUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:3000/v1",
+          "description": "Catalog API endpoint URL for pricing, models and techniques (default: the local API started by `pnpm catalog:dev`). Falls back to the bundled snapshot when unreachable. Leave empty for offline-only mode (uses bundled snapshot).",
+          "scope": "machine"
+        },
+        "tokenOptimizer.implement.exportDir": {
+          "type": "string",
+          "default": "ai_optimizer",
+          "description": "Workspace-relative folder that Implement writes the `ai_optimizer` Python package into. Python call sites import it as `ai_optimizer`, so keep the folder name `ai_optimizer` (you may nest it, e.g. `src/ai_optimizer`).",
+          "scope": "resource"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -b && node scripts/build.cjs && node ../python-runtime/scripts/bundle-extension.mjs",
+    "watch": "tsc -b -w",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@token-optimizer/core": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@token-optimizer/webview": "workspace:*",
+    "@types/node": "^20.17.6",
+    "@types/vscode": "^1.90.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JomalSanish/Token-Optimizer.git"
+  },
+  "license": "MIT"
+}

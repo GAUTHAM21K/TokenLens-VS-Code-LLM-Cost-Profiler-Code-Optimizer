@@ -1,0 +1,23 @@
+{
+  "name": "@token-optimizer/catalog-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Catalog maintenance and seeding scripts for Token Optimizer",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@token-optimizer/core": "workspace:*",
+    "mongodb": "^7.7.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "mongodb-memory-server": "^11.3.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

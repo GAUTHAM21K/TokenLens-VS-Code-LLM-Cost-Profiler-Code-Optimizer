@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches: [main, v2]
+  pull_request:
+    branches: [main, v2]
+
+jobs:
+  quality:
+    name: Code Quality & Security Standards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - name: ESLint (Zero Warnings)
+        run: pnpm run lint
+      - name: Secret Scan (Principle I & III)
+        run: pnpm run secret-scan
+      - name: Tool & Custom Rule Tests (Finding 3)
+        run: pnpm run test:tools
+
+  test:
+    name: Build & Test Matrix (${{ matrix.os }}, Node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - name: Build Monorepo (Dependency Order)
+        run: pnpm -r build
+      - name: Run All Workspace Tests (Core, Webview, Extension, Catalog)
+        run: pnpm -r test
+
+  python:
+    name: Python runtime (pytest + ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r packages/python-runtime/requirements-dev.txt
+      - name: Ruff (incl. D100 module docstrings)
+        run: |
+          ruff check packages/python-runtime
+          ruff check --config packages/python-runtime/pyproject.toml examples
+      - name: Pytest (no LangChain installed; proves the lazy import)
+        run: pytest packages/python-runtime
+      - name: Install LangChain pins (requirements.txt)
+        run: pip install -r packages/python-runtime/requirements.txt
+      - name: Pytest with LangChain (middleware tests must run, none skipped)
+        shell: bash
+        run: |
+          pytest packages/python-runtime -rs | tee pytest.out
+          if grep -qE "[0-9]+ skipped" pytest.out; then echo "middleware tests were skipped"; exit 1; fi
+
+  package:
+    name: Package & Verify VSIX
+    needs: [quality, test, python]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - name: Build Monorepo
+        run: pnpm -r build
+      - name: Package VSIX
+        run: |
+          cd packages/extension
+          pnpm exec vsce package --no-dependencies -o token-optimizer.vsix
+      - name: Verify Packaged VSIX Contents (Finding 1)
+        run: |
+          cd packages/extension
+          mkdir -p unpacked
+          unzip -q token-optimizer.vsix -d unpacked
+          test -f unpacked/extension/dist/extension.js
+          test -f unpacked/extension/dist/webview/index.html
+          test -f unpacked/extension/LICENSE.txt
+          test -f unpacked/extension/resources/python/ai_optimizer/__init__.py
+          test -f unpacked/extension/resources/python/ai_optimizer/middleware.py
+          node -e '
+            const Module = require("node:module");
+            const originalLoad = Module._load;
+            Module._load = (request, parent, isMain) => {
+              if (request === "vscode") return {
+                window: { registerWebviewViewProvider: () => ({ dispose: () => {} }) },
+                commands: { registerCommand: () => ({ dispose: () => {} }) },
+                Uri: { joinPath: (...p) => p.join("/") }
+              };
+              return originalLoad(request, parent, isMain);
+            };
+            const ext = require("./unpacked/extension/dist/extension.js");
+            if (typeof ext.activate !== "function") throw new Error("activate missing");
+            console.log("VSIX bundle verified successfully!");
+          '
+      - uses: actions/upload-artifact@v4
+        with:
+          name: token-optimizer-vsix
+          path: packages/extension/token-optimizer.vsix

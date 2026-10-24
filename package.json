@@ -1,0 +1,36 @@
+{
+  "name": "token-optimizer-monorepo",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Token Optimizer monorepo - VS Code extension for LLM cost estimation and optimization.",
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "lint": "eslint . --max-warnings 0",
+    "test": "pnpm -r run test",
+    "test:tools": "node --test tools/eslint-rules/tests/no-key-in-webview.test.js tools/eslint-rules/tests/require-file-docblock.test.js tools/tests/secret-scan.test.js tools/tests/eslint-config.test.js",
+    "secret-scan": "node tools/scripts/secret-scan.js",
+    "catalog:dev": "tsx packages/catalog-api/scripts/catalog-dev.mts",
+    "harness:serve": "node tools/harness/serve.cjs",
+    "harness:check": "node tools/harness/check.cjs",
+    "demo:workspace": "node tools/scripts/demo-workspace.mjs",
+    "smoke:live": "tsx packages/extension/scripts/smoke-live.mts",
+    "python:bundle": "node packages/python-runtime/scripts/bundle-extension.mjs",
+    "package:vsix": "cd packages/extension && vsce package --no-dependencies -o token-optimizer.vsix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/node": "^20.17.6",
+    "@vscode/vsce": "^3.2.1",
+    "eslint": "^9.14.0",
+    "ovsx": "^0.9.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.13.0",
+    "vitest": "^2.1.4"
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "version": 2,
+  "schemaVersion": "1.0",
+  "publishedAt": "2026-10-09T00:00:00.000Z",
+  "providers": [
+    {
+      "id": "anthropic",
+      "label": "Anthropic Claude",
+      "adapterType": "anthropic",
+      "baseUrl": "https://api.anthropic.com/v1",
+      "keyFormatHint": "sk-ant-...",
+      "enabled": true
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "adapterType": "openai",
+      "baseUrl": "https://api.openai.com/v1",
+      "keyFormatHint": "sk-proj-...",
+      "enabled": true
+    },
+    {
+      "id": "google",
+      "label": "Google Gemini",
+      "adapterType": "google",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "keyFormatHint": "AIzaSy...",
+      "enabled": true
+    },
+    {
+      "id": "mistral",
+      "label": "Mistral AI",
+      "adapterType": "mistral",
+      "baseUrl": "https://api.mistral.ai/v1",
+      "keyFormatHint": "mistral-...",
+      "enabled": true
+    }
+  ],
+  "models": [
+    {
+      "id": "claude-3-5-sonnet-20241022",
+      "providerId": "anthropic",
+      "label": "Claude 3.5 Sonnet",
+      "contextWindow": 200000,
+      "maxOutput": 8192,
+      "tier": "frontier",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "anthropic-endpoint",
+        "name": "claude-3-5-sonnet"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "claude-3-5-haiku-20241022",
+      "providerId": "anthropic",
+      "label": "Claude 3.5 Haiku",
+      "contextWindow": 200000,
+      "maxOutput": 8192,
+      "tier": "economy",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "anthropic-endpoint",
+        "name": "claude-3-5-haiku"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "gpt-4o",
+      "providerId": "openai",
+      "label": "GPT-4o",
+      "contextWindow": 128000,
+      "maxOutput": 4096,
+      "tier": "frontier",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "tiktoken",
+        "name": "o200k_base"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "gpt-4o-mini",
+      "providerId": "openai",
+      "label": "GPT-4o Mini",
+      "contextWindow": 128000,
+      "maxOutput": 4096,
+      "tier": "economy",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "tiktoken",
+        "name": "o200k_base"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    }
+  ],
+  "pricing": [
+    {
+      "modelId": "claude-3-5-sonnet-20241022",
+      "currency": "USD",
+      "inputPerMTok": 3,
+      "outputPerMTok": 15,
+      "cachedInputPerMTok": 0.3,
+      "cacheWriteMultiplier": 1.25,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://www.anthropic.com/pricing",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "claude-3-5-haiku-20241022",
+      "currency": "USD",
+      "inputPerMTok": 1,
+      "outputPerMTok": 5,
+      "cachedInputPerMTok": 0.1,
+      "cacheWriteMultiplier": 1.25,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://www.anthropic.com/pricing",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "gpt-4o",
+      "currency": "USD",
+      "inputPerMTok": 2.5,
+      "outputPerMTok": 10,
+      "cachedInputPerMTok": 1.25,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://openai.com/api/pricing/",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "gpt-4o-mini",
+      "currency": "USD",
+      "inputPerMTok": 0.15,
+      "outputPerMTok": 0.6,
+      "cachedInputPerMTok": 0.075,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://openai.com/api/pricing/",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    }
+  ],
+  "phases": [
+    {
+      "id": "architecture",
+      "name": "Architecture & Scaffolding",
+      "track": "build",
+      "sortOrder": 1,
+      "description": "Initial system architectural scoping, schema design, and scaffolding prompts.",
+      "shortDescription": "Scoping, schema design, and scaffolding prompts.",
+      "archetypes": [
+        "rag-chatbot",
+        "coding-agent",
+        "general"
+      ],
+      "defaultParams": {
+        "callsLow": 1,
+        "callsExpected": 5,
+        "callsHigh": 15,
+        "tokensPerCallLow": 1000,
+        "tokensPerCallExpected": 4000,
+        "tokensPerCallHigh": 10000,
+        "retriesLow": 0,
+        "retriesExpected": 1,
+        "retriesHigh": 3
+      },
+      "cacheablePrefix": 0
+    },
+    {
+      "id": "implementation",
+      "name": "Feature Implementation",
+      "track": "build",
+      "sortOrder": 2,
+      "description": "Iterative agentic code generation and unit testing cycles.",
+      "shortDescription": "Iterative code generation and unit testing.",
+      "archetypes": [
+        "rag-chatbot",
+        "coding-agent",
+        "general"
+      ],
+      "defaultParams": {
+        "callsLow": 5,
+        "callsExpected": 20,
+        "callsHigh": 80,
+        "tokensPerCallLow": 800,
+        "tokensPerCallExpected": 2500,
+        "tokensPerCallHigh": 8000,
+        "retriesLow": 0,
+        "retriesExpected": 2,
+        "retriesHigh": 5
+      },
+      "cacheablePrefix": 0.5
+    },
+    {
+      "id": "query-answering",
+      "name": "Runtime Query Processing",
+      "track": "runtime",
+      "sortOrder": 3,
+      "description": "User queries processed by runtime RAG and generation pipelines.",
+      "shortDescription": "Runtime RAG and query answering pipelines.",
+      "archetypes": [
+        "rag-chatbot",
+        "general"
+      ],
+      "defaultParams": {
+        "callsLow": 1,
+        "callsExpected": 1,
+        "callsHigh": 3,
+        "tokensPerCallLow": 500,
+        "tokensPerCallExpected": 2000,
+        "tokensPerCallHigh": 6000,
+        "retriesLow": 0,
+        "retriesExpected": 0,
+        "retriesHigh": 1,
+        "volumeMultiplierLow": 1,
+        "volumeMultiplierExpected": 1,
+        "volumeMultiplierHigh": 1.5
+      },
+      "cacheablePrefix": 0.5
+    }
+  ],
+  "strategies": [
+    {
+      "id": "prompt-prefix-caching",
+      "name": "Prompt Prefix Caching",
+      "group": "caching",
+      "targets": [
+        "build",
+        "runtime"
+      ],
+      "summary": "Anchor unchanging system instructions and reference documents at the prompt start to leverage provider prompt cache discounts.",
+      "applicability": {
+        "path": "llm.avgPrefixTokens",
+        "gte": 1024
+      },
+      "savings": {
+        "minPercent": 40,
+        "maxPercent": 80,
+        "basis": "Cache read pricing reduction on shared prompt prefixes",
+        "unit": "percent",
+        "appliesTo": "input",
+        "sourceUrl": "https://www.anthropic.com/pricing"
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Jomal Sanish",
+      "reviewedAt": "2026-10-09T00:00:00.000Z",
+      "version": 1
+    }
+  ],
+  "platforms": [
+    {
+      "id": "vscode",
+      "label": "Visual Studio Code",
+      "detect": {
+        "appNames": [
+          "Visual Studio Code",
+          "Code - OSS",
+          "VSCodium"
+        ],
+        "uriSchemes": [
+          "vscode",
+          "vscode-insiders"
+        ],
+        "markerFiles": [
+          ".vscode/settings.json"
+        ]
+      },
+      "artifactTargets": [
+        {
+          "kind": "instruction",
+          "layout": "file",
+          "defaultEnabled": true,
+          "pathTemplate": ".vscode/token-optimizer.instructions.md",
+          "format": "markdown"
+        },
+        {
+          "kind": "skill",
+          "layout": "directory",
+          "defaultEnabled": true,
+          "pathTemplate": ".vscode/skills/{{strategyId}}",
+          "format": "markdown"
+        }
+      ],
+      "docsUrl": "https://code.visualstudio.com/docs",
+      "verifiedAt": "2026-10-09T00:00:00Z",
+      "isDefault": true,
+      "agentInvocation": {
+        "mechanisms": [
+          "lm-edit",
+          "chat-handoff",
+          "clipboard"
+        ]
+      }
+    }
+  ],
+  "promptTemplates": [
+    {
+      "id": "enhance-default",
+      "version": 1,
+      "purpose": "enhance",
+      "template": "Analyze project architecture and generate token optimization profile.\n\nProject:\n{{description}}\n\nPhases:\n{{phasesTaxonomy}}\n\nOutput JSON narrative and profile.",
+      "outputSchemaRef": "ProjectProfileSchema",
+      "active": true
+    }
+  ]
+}

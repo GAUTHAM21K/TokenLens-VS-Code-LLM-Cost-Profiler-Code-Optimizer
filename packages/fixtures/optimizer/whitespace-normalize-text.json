@@ -1,0 +1,15 @@
+{
+  "id": "whitespace-normalize-text",
+  "description": "Collapse inner space runs, strip trailing spaces, drop markdown rule lines, keep at most one blank line, trim.",
+  "techniques": [
+    "whitespace-normalize"
+  ],
+  "input": {
+    "kind": "text",
+    "text": "  Summarize   the report.\n\n\n\nBe   concise.   \n---\nThanks.\n"
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Summarize the report.\n\nBe concise.\nThanks."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "c-dedupe-sentences-text",
+  "description": "dedupe-sentences: key = lowercase, collapsed whitespace, no trailing .!?; later duplicates dropped across lines; emptied lines removed, blank lines kept, kept sentences re-joined with one space.",
+  "techniques": [
+    "dedupe-sentences"
+  ],
+  "input": {
+    "kind": "text",
+    "text": "Be concise. Use bullet points.\nbe   concise!\n\nUse bullet points. Cite sources?\nCite sources.\nAnswer in English. Answer in English.\nNew point.   Another point."
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Be concise. Use bullet points.\n\nCite sources?\nAnswer in English.\nNew point. Another point."
+  }
+}

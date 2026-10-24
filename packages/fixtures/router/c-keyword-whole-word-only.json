@@ -1,0 +1,67 @@
+{
+  "id": "c-keyword-whole-word-only",
+  "description": "Keywords match whole ASCII words only: 'debugger' and 'my_debug' do not match 'debug'.",
+  "config": {
+    "presetId": "default",
+    "tiers": {
+      "economy": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-20b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o-mini"
+        },
+        {
+          "providerId": "anthropic",
+          "modelId": "claude-3-5-haiku-20241022"
+        }
+      ],
+      "standard": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-120b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o"
+        }
+      ],
+      "advanced": [
+        {
+          "providerId": "groq",
+          "modelId": "qwen/qwen3.8-27b"
+        },
+        {
+          "providerId": "anthropic",
+          "modelId": "claude-3-5-sonnet-20241022"
+        }
+      ]
+    },
+    "rules": {
+      "maxCharsForEconomy": 600,
+      "advancedKeywords": [
+        "analyze",
+        "architecture",
+        "debug",
+        "prove",
+        "refactor",
+        "step by step",
+        "trade-offs"
+      ],
+      "needsToolsMinTier": "standard",
+      "defaultTier": "standard"
+    }
+  },
+  "input": {
+    "kind": "text",
+    "text": "Fix the debugger in my_debug mode."
+  },
+  "needsTools": false,
+  "expected": {
+    "tier": "economy",
+    "model": "openai/gpt-oss-20b",
+    "provider": "groq"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "c-whitespace-indent-rules",
+  "description": "whitespace-normalize keeps leading indentation (the final trim still strips the first line's), collapses inner tabs/spaces, drops rule lines (surrounding spaces allowed), CRLF to LF.",
+  "techniques": [
+    "whitespace-normalize"
+  ],
+  "input": {
+    "kind": "text",
+    "text": "\tdef  f():\r\n    return\t\t1   \r\n\r\n\r\n  ***  \r\n___\r\nend"
+  },
+  "expected": {
+    "kind": "text",
+    "text": "def f():\n    return 1\n\nend"
+  }
+}

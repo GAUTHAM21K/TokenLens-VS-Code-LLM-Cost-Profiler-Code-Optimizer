@@ -1,0 +1,76 @@
+[
+  {
+    "id": "architecture",
+    "name": "Architecture & Scaffolding",
+    "track": "build",
+    "sortOrder": 1,
+    "description": "Initial system architectural scoping, schema design, and scaffolding prompts.",
+    "archetypes": [
+      "rag-chatbot",
+      "coding-agent",
+      "general"
+    ],
+    "defaultParams": {
+      "callsLow": 1,
+      "callsExpected": 5,
+      "callsHigh": 15,
+      "tokensPerCallLow": 1000,
+      "tokensPerCallExpected": 4000,
+      "tokensPerCallHigh": 10000,
+      "retriesLow": 0,
+      "retriesExpected": 1,
+      "retriesHigh": 3
+    },
+    "cacheablePrefix": 0
+  },
+  {
+    "id": "implementation",
+    "name": "Feature Implementation",
+    "track": "build",
+    "sortOrder": 2,
+    "description": "Iterative agentic code generation and unit testing cycles.",
+    "archetypes": [
+      "rag-chatbot",
+      "coding-agent",
+      "general"
+    ],
+    "defaultParams": {
+      "callsLow": 5,
+      "callsExpected": 20,
+      "callsHigh": 80,
+      "tokensPerCallLow": 800,
+      "tokensPerCallExpected": 2500,
+      "tokensPerCallHigh": 8000,
+      "retriesLow": 0,
+      "retriesExpected": 2,
+      "retriesHigh": 5
+    },
+    "cacheablePrefix": 0.5
+  },
+  {
+    "id": "query-answering",
+    "name": "Runtime Query Processing",
+    "track": "runtime",
+    "sortOrder": 3,
+    "description": "User queries processed by runtime RAG and generation pipelines.",
+    "archetypes": [
+      "rag-chatbot",
+      "general"
+    ],
+    "defaultParams": {
+      "callsLow": 1,
+      "callsExpected": 1,
+      "callsHigh": 3,
+      "tokensPerCallLow": 500,
+      "tokensPerCallExpected": 2000,
+      "tokensPerCallHigh": 6000,
+      "retriesLow": 0,
+      "retriesExpected": 0,
+      "retriesHigh": 1,
+      "volumeMultiplierLow": 1,
+      "volumeMultiplierExpected": 1,
+      "volumeMultiplierHigh": 1.5
+    },
+    "cacheablePrefix": 0.5
+  }
+]

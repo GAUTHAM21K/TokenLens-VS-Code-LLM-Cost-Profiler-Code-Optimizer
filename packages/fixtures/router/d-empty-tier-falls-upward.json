@@ -1,0 +1,54 @@
+{
+  "id": "d-empty-tier-falls-upward",
+  "description": "Empty economy tier falls back upward to the first standard candidate.",
+  "config": {
+    "presetId": "default",
+    "tiers": {
+      "economy": [],
+      "standard": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-120b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o"
+        }
+      ],
+      "advanced": [
+        {
+          "providerId": "groq",
+          "modelId": "qwen/qwen3.8-27b"
+        },
+        {
+          "providerId": "anthropic",
+          "modelId": "claude-3-5-sonnet-20241022"
+        }
+      ]
+    },
+    "rules": {
+      "maxCharsForEconomy": 600,
+      "advancedKeywords": [
+        "analyze",
+        "architecture",
+        "debug",
+        "prove",
+        "refactor",
+        "step by step",
+        "trade-offs"
+      ],
+      "needsToolsMinTier": "standard",
+      "defaultTier": "standard"
+    }
+  },
+  "input": {
+    "kind": "text",
+    "text": "Hi"
+  },
+  "needsTools": false,
+  "expected": {
+    "tier": "standard",
+    "model": "openai/gpt-oss-120b",
+    "provider": "groq"
+  }
+}

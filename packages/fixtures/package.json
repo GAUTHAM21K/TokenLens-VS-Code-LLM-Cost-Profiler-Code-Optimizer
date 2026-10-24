@@ -1,0 +1,15 @@
+{
+  "name": "@token-optimizer/fixtures",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Golden fixtures and test artifacts for Token Optimizer",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "e2e": "echo e2e runner scheduled for Slice 8 (T123)"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "typescript": "^5.6.3"
+  }
+}

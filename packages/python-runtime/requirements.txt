@@ -1,0 +1,4 @@
+# Runtime extras for ai_optimizer.middleware and get_model (techniques/router are stdlib only).
+# Pinned 2026-10-12 to the latest releases; Track C confirms the AgentMiddleware API against these.
+langchain==1.4.4
+langchain-groq==1.1.3

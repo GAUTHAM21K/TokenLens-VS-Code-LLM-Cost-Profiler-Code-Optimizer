@@ -1,0 +1,36 @@
+{
+  "id": "max-output-cap-messages",
+  "description": "max_tokens becomes min(existing, cap); messages are untouched.",
+  "techniques": [
+    "max-output-cap"
+  ],
+  "config": {
+    "max-output-cap": {
+      "maxTokens": 256
+    }
+  },
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      }
+    ],
+    "params": {
+      "max_tokens": 1000
+    }
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      }
+    ],
+    "params": {
+      "max_tokens": 256
+    }
+  }
+}

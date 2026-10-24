@@ -1,0 +1,854 @@
+{
+  "version": 11,
+  "schemaVersion": "2.0",
+  "publishedAt": "2026-10-13T15:40:21.374Z",
+  "providers": [
+    {
+      "id": "anthropic",
+      "label": "Anthropic Claude",
+      "adapterType": "anthropic",
+      "baseUrl": "https://api.anthropic.com/v1",
+      "keyFormatHint": "sk-ant-...",
+      "enabled": true
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "adapterType": "openai",
+      "baseUrl": "https://api.openai.com/v1",
+      "keyFormatHint": "sk-proj-...",
+      "enabled": true
+    },
+    {
+      "id": "google",
+      "label": "Google Gemini",
+      "adapterType": "google",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "keyFormatHint": "AIzaSy...",
+      "enabled": true
+    },
+    {
+      "id": "mistral",
+      "label": "Mistral AI",
+      "adapterType": "mistral",
+      "baseUrl": "https://api.mistral.ai/v1",
+      "keyFormatHint": "mistral-...",
+      "enabled": true
+    },
+    {
+      "id": "groq",
+      "label": "Groq",
+      "adapterType": "openai-compatible",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "listModelsEndpoint": "/models",
+      "keyFormatHint": "gsk_...",
+      "enabled": true
+    }
+  ],
+  "models": [
+    {
+      "id": "claude-3-5-sonnet-20241022",
+      "providerId": "anthropic",
+      "label": "Claude 3.5 Sonnet",
+      "contextWindow": 200000,
+      "maxOutput": 8192,
+      "tier": "frontier",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "anthropic-endpoint",
+        "name": "claude-3-5-sonnet"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "claude-3-5-haiku-20241022",
+      "providerId": "anthropic",
+      "label": "Claude 3.5 Haiku",
+      "contextWindow": 200000,
+      "maxOutput": 8192,
+      "tier": "economy",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "anthropic-endpoint",
+        "name": "claude-3-5-haiku"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "gpt-4o",
+      "providerId": "openai",
+      "label": "GPT-4o",
+      "contextWindow": 128000,
+      "maxOutput": 4096,
+      "tier": "frontier",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "tiktoken",
+        "name": "o200k_base"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "gpt-4o-mini",
+      "providerId": "openai",
+      "label": "GPT-4o Mini",
+      "contextWindow": 128000,
+      "maxOutput": 4096,
+      "tier": "economy",
+      "supportsCaching": true,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "tiktoken",
+        "name": "o200k_base"
+      },
+      "status": "active",
+      "addedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "id": "openai/gpt-oss-20b",
+      "providerId": "groq",
+      "label": "GPT-OSS 20B (Groq)",
+      "contextWindow": 131072,
+      "maxOutput": 65536,
+      "tier": "economy",
+      "supportsCaching": false,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "char-approx"
+      },
+      "status": "active",
+      "addedAt": "2026-10-12T00:00:00Z"
+    },
+    {
+      "id": "openai/gpt-oss-120b",
+      "providerId": "groq",
+      "label": "GPT-OSS 120B (Groq)",
+      "contextWindow": 131072,
+      "maxOutput": 65536,
+      "tier": "standard",
+      "supportsCaching": false,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "char-approx"
+      },
+      "status": "active",
+      "addedAt": "2026-10-12T00:00:00Z"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "providerId": "groq",
+      "label": "Qwen 3.8 27B (Groq, preview)",
+      "contextWindow": 131072,
+      "maxOutput": 16384,
+      "tier": "advanced",
+      "supportsCaching": false,
+      "supportsBatch": true,
+      "supportsStructuredOutput": true,
+      "tokenizer": {
+        "kind": "char-approx"
+      },
+      "status": "active",
+      "addedAt": "2026-10-12T00:00:00Z"
+    }
+  ],
+  "pricing": [
+    {
+      "modelId": "claude-3-5-sonnet-20241022",
+      "currency": "USD",
+      "inputPerMTok": 3,
+      "outputPerMTok": 15,
+      "cachedInputPerMTok": 0.3,
+      "cacheWriteMultiplier": 1.25,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://www.anthropic.com/pricing",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "claude-3-5-haiku-20241022",
+      "currency": "USD",
+      "inputPerMTok": 1,
+      "outputPerMTok": 5,
+      "cachedInputPerMTok": 0.1,
+      "cacheWriteMultiplier": 1.25,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://www.anthropic.com/pricing",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "gpt-4o",
+      "currency": "USD",
+      "inputPerMTok": 2.5,
+      "outputPerMTok": 10,
+      "cachedInputPerMTok": 1.25,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://openai.com/api/pricing/",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "gpt-4o-mini",
+      "currency": "USD",
+      "inputPerMTok": 0.15,
+      "outputPerMTok": 0.6,
+      "cachedInputPerMTok": 0.075,
+      "batchDiscount": 0.5,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://openai.com/api/pricing/",
+      "verifiedAt": "2026-10-09T00:00:00Z"
+    },
+    {
+      "modelId": "openai/gpt-oss-20b",
+      "currency": "USD",
+      "inputPerMTok": 0.075,
+      "outputPerMTok": 0.3,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://console.groq.com/docs/models",
+      "verifiedAt": "2026-10-12T00:00:00Z"
+    },
+    {
+      "modelId": "openai/gpt-oss-120b",
+      "currency": "USD",
+      "inputPerMTok": 0.15,
+      "outputPerMTok": 0.6,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://console.groq.com/docs/models",
+      "verifiedAt": "2026-10-12T00:00:00Z"
+    },
+    {
+      "modelId": "qwen/qwen3.8-27b",
+      "currency": "USD",
+      "inputPerMTok": 0.8,
+      "outputPerMTok": 4,
+      "effectiveFrom": "2026-10-01T00:00:00Z",
+      "sourceUrl": "https://console.groq.com/docs/models",
+      "verifiedAt": "2026-10-12T00:00:00Z"
+    }
+  ],
+  "phases": [
+    {
+      "id": "architecture",
+      "name": "Architecture & Scaffolding",
+      "track": "build",
+      "sortOrder": 1,
+      "description": "Initial system architectural scoping, schema design, and scaffolding prompts.",
+      "archetypes": [
+        "rag-chatbot",
+        "coding-agent",
+        "general"
+      ],
+      "defaultParams": {
+        "callsLow": 1,
+        "callsExpected": 5,
+        "callsHigh": 15,
+        "tokensPerCallLow": 1000,
+        "tokensPerCallExpected": 4000,
+        "tokensPerCallHigh": 10000,
+        "retriesLow": 0,
+        "retriesExpected": 1,
+        "retriesHigh": 3
+      },
+      "cacheablePrefix": 0
+    },
+    {
+      "id": "implementation",
+      "name": "Feature Implementation",
+      "track": "build",
+      "sortOrder": 2,
+      "description": "Iterative agentic code generation and unit testing cycles.",
+      "archetypes": [
+        "rag-chatbot",
+        "coding-agent",
+        "general"
+      ],
+      "defaultParams": {
+        "callsLow": 5,
+        "callsExpected": 20,
+        "callsHigh": 80,
+        "tokensPerCallLow": 800,
+        "tokensPerCallExpected": 2500,
+        "tokensPerCallHigh": 8000,
+        "retriesLow": 0,
+        "retriesExpected": 2,
+        "retriesHigh": 5
+      },
+      "cacheablePrefix": 0.5
+    },
+    {
+      "id": "query-answering",
+      "name": "Runtime Query Processing",
+      "track": "runtime",
+      "sortOrder": 3,
+      "description": "User queries processed by runtime RAG and generation pipelines.",
+      "archetypes": [
+        "rag-chatbot",
+        "general"
+      ],
+      "defaultParams": {
+        "callsLow": 1,
+        "callsExpected": 1,
+        "callsHigh": 3,
+        "tokensPerCallLow": 500,
+        "tokensPerCallExpected": 2000,
+        "tokensPerCallHigh": 6000,
+        "retriesLow": 0,
+        "retriesExpected": 0,
+        "retriesHigh": 1,
+        "volumeMultiplierLow": 1,
+        "volumeMultiplierExpected": 1,
+        "volumeMultiplierHigh": 1.5
+      },
+      "cacheablePrefix": 0.5
+    }
+  ],
+  "strategies": [
+    {
+      "id": "whitespace-normalize",
+      "name": "Whitespace Normalization",
+      "group": "prompt-efficiency",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Collapse runs of spaces and blank lines, strip trailing whitespace and markdown rule lines.",
+      "savings": {
+        "minPercent": 1,
+        "maxPercent": 8,
+        "basis": "Whitespace and decorative markdown tokens removed from typical prompts",
+        "unit": "percent",
+        "appliesTo": "input"
+      },
+      "optimizer": {
+        "mode": "rule",
+        "ruleId": "whitespace-normalize",
+        "order": 10,
+        "affects": "input"
+      },
+      "implementation": {
+        "language": "python",
+        "symbol": "optimize_messages",
+        "integrations": [
+          "agent-middleware",
+          "invoke-wrap"
+        ]
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.355Z",
+      "version": 1
+    },
+    {
+      "id": "filler-removal",
+      "name": "Prompt Compressor (filler removal)",
+      "group": "prompt-efficiency",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Drop politeness, hedging and redundant phrases from a curated list.",
+      "applicability": {
+        "path": "llm.avgPromptTokens",
+        "gte": 500
+      },
+      "reasonTemplate": "Prompts average {{value}} tokens; filler phrases are cheap to remove.",
+      "savings": {
+        "minPercent": 3,
+        "maxPercent": 12,
+        "basis": "Curated filler phrase list applied to conversational prompts",
+        "unit": "percent",
+        "appliesTo": "input"
+      },
+      "optimizer": {
+        "mode": "rule",
+        "ruleId": "filler-removal",
+        "order": 20,
+        "affects": "input",
+        "params": {
+          "phrases": [
+            "please note that",
+            "it is important to note that",
+            "i would like you to",
+            "could you please",
+            "can you please",
+            "please",
+            "kindly",
+            "basically",
+            "actually",
+            "just",
+            "really",
+            "very",
+            "in order to",
+            "as an ai language model,",
+            "thank you in advance",
+            "thanks in advance"
+          ]
+        }
+      },
+      "implementation": {
+        "language": "python",
+        "symbol": "optimize_messages",
+        "integrations": [
+          "agent-middleware",
+          "invoke-wrap"
+        ]
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.358Z",
+      "version": 1
+    },
+    {
+      "id": "dedupe-sentences",
+      "name": "Duplicate Sentence Removal",
+      "group": "prompt-efficiency",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Remove repeated sentences and instructions, keeping the first occurrence.",
+      "savings": {
+        "minPercent": 0,
+        "maxPercent": 10,
+        "basis": "Repeated instructions in long-lived prompt templates",
+        "unit": "percent",
+        "appliesTo": "input"
+      },
+      "optimizer": {
+        "mode": "rule",
+        "ruleId": "dedupe-sentences",
+        "order": 30,
+        "affects": "input"
+      },
+      "implementation": {
+        "language": "python",
+        "symbol": "optimize_messages",
+        "integrations": [
+          "agent-middleware",
+          "invoke-wrap"
+        ]
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.361Z",
+      "version": 1
+    },
+    {
+      "id": "cache-prefix-ordering",
+      "name": "Cache-friendly Prefix Ordering",
+      "group": "caching",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Move static system instructions and context first so provider prompt caching applies.",
+      "applicability": {
+        "path": "llm.avgPrefixTokens",
+        "gte": 1024
+      },
+      "reasonTemplate": "Shared prefix of {{value}} tokens qualifies for prompt caching.",
+      "savings": {
+        "minPercent": 10,
+        "maxPercent": 50,
+        "basis": "Cached-input discount on stable prompt prefixes",
+        "unit": "percent",
+        "appliesTo": "input",
+        "sourceUrl": "https://www.anthropic.com/pricing"
+      },
+      "optimizer": {
+        "mode": "rule",
+        "ruleId": "cache-prefix-ordering",
+        "order": 40,
+        "affects": "input"
+      },
+      "implementation": {
+        "language": "python",
+        "symbol": "optimize_messages",
+        "integrations": [
+          "agent-middleware",
+          "invoke-wrap"
+        ]
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.364Z",
+      "version": 1
+    },
+    {
+      "id": "caveman-output",
+      "name": "Terse Output Instruction",
+      "group": "output-control",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Inject a terse-response system instruction to cut output tokens.",
+      "savings": {
+        "minPercent": 20,
+        "maxPercent": 60,
+        "basis": "Terse-style instruction reduces verbose completions",
+        "unit": "percent",
+        "appliesTo": "output"
+      },
+      "optimizer": {
+        "mode": "rule",
+        "ruleId": "caveman-output",
+        "order": 50,
+        "affects": "output",
+        "params": {
+          "instruction": "Respond tersely: no preamble, no restating the question, no filler. Use short fragments and lists when clear."
+        }
+      },
+      "implementation": {
+        "language": "python",
+        "symbol": "optimize_messages",
+        "integrations": [
+          "agent-middleware",
+          "invoke-wrap"
+        ]
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.366Z",
+      "version": 1
+    },
+    {
+      "id": "max-output-cap",
+      "name": "Max Output Cap",
+      "group": "output-control",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Set max_tokens from a configured cap so completions cannot run long.",
+      "savings": {
+        "minPercent": 0,
+        "maxPercent": 40,
+        "basis": "Bounded completion length on chatty endpoints",
+        "unit": "percent",
+        "appliesTo": "output"
+      },
+      "optimizer": {
+        "mode": "rule",
+        "ruleId": "max-output-cap",
+        "order": 60,
+        "affects": "output",
+        "params": {
+          "maxTokens": 512
+        }
+      },
+      "implementation": {
+        "language": "python",
+        "symbol": "optimize_messages",
+        "integrations": [
+          "agent-middleware",
+          "invoke-wrap"
+        ]
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.368Z",
+      "version": 1
+    },
+    {
+      "id": "llm-compress",
+      "name": "LLM Prompt Compression",
+      "group": "prompt-efficiency",
+      "targets": [
+        "runtime"
+      ],
+      "summary": "Have the selected model rewrite the prompt to minimal tokens while preserving meaning.",
+      "savings": {
+        "minPercent": 20,
+        "maxPercent": 60,
+        "basis": "LLM rewrite of verbose prompts; costs one extra call per optimization",
+        "unit": "percent",
+        "appliesTo": "input"
+      },
+      "optimizer": {
+        "mode": "llm",
+        "promptTemplateId": "compress-default",
+        "order": 5,
+        "affects": "input"
+      },
+      "reviewStatus": "approved",
+      "reviewedBy": "Sr",
+      "reviewedAt": "2026-10-13T15:40:21.371Z",
+      "version": 1
+    }
+  ],
+  "platforms": [
+    {
+      "id": "vscode",
+      "label": "Visual Studio Code",
+      "detect": {
+        "appNames": [
+          "Visual Studio Code",
+          "Code - OSS",
+          "VSCodium"
+        ],
+        "uriSchemes": [
+          "vscode",
+          "vscode-insiders"
+        ],
+        "markerFiles": [
+          ".vscode/settings.json"
+        ]
+      },
+      "artifactTargets": [
+        {
+          "kind": "instruction",
+          "layout": "file",
+          "defaultEnabled": true,
+          "pathTemplate": ".vscode/token-optimizer.instructions.md",
+          "format": "markdown"
+        },
+        {
+          "kind": "skill",
+          "layout": "directory",
+          "defaultEnabled": true,
+          "pathTemplate": ".vscode/skills/{{strategyId}}",
+          "format": "markdown"
+        }
+      ],
+      "docsUrl": "https://code.visualstudio.com/docs",
+      "verifiedAt": "2026-10-09T00:00:00Z",
+      "isDefault": true,
+      "agentInvocation": {
+        "mechanisms": [
+          "lm-edit",
+          "chat-handoff",
+          "clipboard"
+        ]
+      }
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "detect": {
+        "appNames": [
+          "Cursor"
+        ],
+        "uriSchemes": [
+          "cursor"
+        ],
+        "markerFiles": [
+          ".cursorrules",
+          ".cursor"
+        ]
+      },
+      "artifactTargets": [
+        {
+          "kind": "rule",
+          "layout": "file",
+          "defaultEnabled": true,
+          "pathTemplate": ".cursorrules",
+          "format": "markdown"
+        },
+        {
+          "kind": "skill",
+          "layout": "directory",
+          "defaultEnabled": true,
+          "pathTemplate": ".cursor/skills/{{strategyId}}",
+          "format": "markdown"
+        }
+      ],
+      "docsUrl": "https://docs.cursor.com",
+      "verifiedAt": "2026-10-09T00:00:00Z",
+      "isDefault": false,
+      "agentInvocation": {
+        "mechanisms": [
+          "chat-handoff",
+          "clipboard"
+        ]
+      }
+    },
+    {
+      "id": "windsurf",
+      "label": "Windsurf",
+      "detect": {
+        "appNames": [
+          "Windsurf"
+        ],
+        "uriSchemes": [
+          "windsurf"
+        ],
+        "markerFiles": [
+          ".codeium/windsurf"
+        ]
+      },
+      "artifactTargets": [
+        {
+          "kind": "rule",
+          "layout": "file",
+          "defaultEnabled": true,
+          "pathTemplate": ".windsurfrules",
+          "format": "markdown"
+        },
+        {
+          "kind": "skill",
+          "layout": "directory",
+          "defaultEnabled": true,
+          "pathTemplate": ".windsurf/skills/{{strategyId}}",
+          "format": "markdown"
+        }
+      ],
+      "docsUrl": "https://codeium.com/windsurf",
+      "verifiedAt": "2026-10-09T00:00:00Z",
+      "isDefault": false,
+      "agentInvocation": {
+        "mechanisms": [
+          "clipboard"
+        ]
+      }
+    },
+    {
+      "id": "antigravity",
+      "label": "Antigravity IDE",
+      "detect": {
+        "appNames": [
+          "Antigravity"
+        ],
+        "uriSchemes": [
+          "antigravity"
+        ],
+        "markerFiles": [
+          ".agents"
+        ]
+      },
+      "artifactTargets": [
+        {
+          "kind": "rule",
+          "layout": "file",
+          "defaultEnabled": true,
+          "pathTemplate": ".agents/rules/token-optimizer.md",
+          "format": "markdown"
+        },
+        {
+          "kind": "skill",
+          "layout": "directory",
+          "defaultEnabled": true,
+          "pathTemplate": ".agents/skills/{{strategyId}}",
+          "format": "markdown"
+        }
+      ],
+      "docsUrl": "https://antigravity.google.com/docs",
+      "verifiedAt": "2026-10-09T00:00:00Z",
+      "isDefault": false,
+      "agentInvocation": {
+        "mechanisms": [
+          "lm-edit",
+          "chat-handoff",
+          "clipboard"
+        ]
+      }
+    }
+  ],
+  "promptTemplates": [
+    {
+      "id": "enhance-default",
+      "version": 2,
+      "purpose": "enhance",
+      "template": "You are a token-cost analyst. Read the project description and return ONE JSON object: a token optimization profile for this project.\n\nProject:\n{{description}}\n\nPhase taxonomy (use these phase ids and tracks):\n{{phasesTaxonomy}}\n\nProfile shape:\n{{profileShape}}\n\nRules: output only the JSON object (no prose, no markdown fences); use numbers, not strings, for counts and token sizes; estimate realistic values when the description doesn't say.",
+      "outputSchemaRef": "ProjectProfileSchema",
+      "active": true
+    },
+    {
+      "id": "profile-extract-default",
+      "version": 1,
+      "purpose": "profile-extract",
+      "template": "Extract token profile from codebase.\n\nFiles:\n{{workspaceFiles}}\n\nOutput JSON project profile.",
+      "outputSchemaRef": "ProjectProfileSchema",
+      "active": true
+    },
+    {
+      "id": "apply-edit-default",
+      "version": 1,
+      "purpose": "apply-edit",
+      "template": "Apply token optimization strategy {{strategyName}} to code:\n{{codeSnippet}}\n\nOutput JSON EditProposal.",
+      "outputSchemaRef": "EditProposalSchema",
+      "active": true
+    },
+    {
+      "id": "preview-default",
+      "version": 1,
+      "purpose": "preview",
+      "template": "Preview token reduction for strategy {{strategyName}}.\n\nInput:\n{{inputText}}",
+      "outputSchemaRef": null,
+      "active": true
+    },
+    {
+      "id": "compress-default",
+      "version": 1,
+      "purpose": "compress",
+      "template": "Rewrite the prompt below using as few tokens as possible while preserving every instruction, constraint, fact and placeholder ({{...}}). Do not answer it. Output only the rewritten prompt.\n\nPrompt:\n{{prompt}}",
+      "outputSchemaRef": null,
+      "active": true
+    }
+  ],
+  "routerPresets": [
+    {
+      "id": "default",
+      "label": "Default tiers (Groq first)",
+      "description": "Short prompts go to economy, keyword-heavy reasoning prompts to advanced, tool use to at least standard.",
+      "isDefault": true,
+      "version": 1,
+      "tiers": {
+        "economy": [
+          {
+            "modelId": "openai/gpt-oss-20b",
+            "providerId": "groq"
+          },
+          {
+            "modelId": "gpt-4o-mini",
+            "providerId": "openai"
+          },
+          {
+            "modelId": "claude-3-5-haiku-20241022",
+            "providerId": "anthropic"
+          }
+        ],
+        "standard": [
+          {
+            "modelId": "openai/gpt-oss-120b",
+            "providerId": "groq"
+          },
+          {
+            "modelId": "gpt-4o",
+            "providerId": "openai"
+          }
+        ],
+        "advanced": [
+          {
+            "modelId": "qwen/qwen3.8-27b",
+            "providerId": "groq"
+          },
+          {
+            "modelId": "claude-3-5-sonnet-20241022",
+            "providerId": "anthropic"
+          }
+        ]
+      },
+      "rules": {
+        "maxCharsForEconomy": 600,
+        "advancedKeywords": [
+          "analyze",
+          "architecture",
+          "debug",
+          "prove",
+          "refactor",
+          "step by step",
+          "trade-offs"
+        ],
+        "needsToolsMinTier": "standard",
+        "defaultTier": "standard"
+      }
+    }
+  ]
+}

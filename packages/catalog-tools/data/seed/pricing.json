@@ -1,0 +1,75 @@
+[
+  {
+    "modelId": "claude-3-5-sonnet-20241022",
+    "currency": "USD",
+    "inputPerMTok": 3,
+    "outputPerMTok": 15,
+    "cachedInputPerMTok": 0.3,
+    "cacheWriteMultiplier": 1.25,
+    "batchDiscount": 0.5,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://www.anthropic.com/pricing",
+    "verifiedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "modelId": "claude-3-5-haiku-20241022",
+    "currency": "USD",
+    "inputPerMTok": 1,
+    "outputPerMTok": 5,
+    "cachedInputPerMTok": 0.1,
+    "cacheWriteMultiplier": 1.25,
+    "batchDiscount": 0.5,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://www.anthropic.com/pricing",
+    "verifiedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "modelId": "gpt-4o",
+    "currency": "USD",
+    "inputPerMTok": 2.5,
+    "outputPerMTok": 10,
+    "cachedInputPerMTok": 1.25,
+    "batchDiscount": 0.5,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://openai.com/api/pricing/",
+    "verifiedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "modelId": "gpt-4o-mini",
+    "currency": "USD",
+    "inputPerMTok": 0.15,
+    "outputPerMTok": 0.6,
+    "cachedInputPerMTok": 0.075,
+    "batchDiscount": 0.5,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://openai.com/api/pricing/",
+    "verifiedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "modelId": "openai/gpt-oss-20b",
+    "currency": "USD",
+    "inputPerMTok": 0.075,
+    "outputPerMTok": 0.3,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://console.groq.com/docs/models",
+    "verifiedAt": "2026-10-12T00:00:00Z"
+  },
+  {
+    "modelId": "openai/gpt-oss-120b",
+    "currency": "USD",
+    "inputPerMTok": 0.15,
+    "outputPerMTok": 0.6,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://console.groq.com/docs/models",
+    "verifiedAt": "2026-10-12T00:00:00Z"
+  },
+  {
+    "modelId": "qwen/qwen3.8-27b",
+    "currency": "USD",
+    "inputPerMTok": 0.8,
+    "outputPerMTok": 4,
+    "effectiveFrom": "2026-10-01T00:00:00Z",
+    "sourceUrl": "https://console.groq.com/docs/models",
+    "verifiedAt": "2026-10-12T00:00:00Z"
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "id": "p2-whitespace-normalize-roles",
+  "description": "whitespace-normalize applies to every message role (system, user, assistant), each content normalized on its own.",
+  "techniques": [
+    "whitespace-normalize"
+  ],
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "  You are   a helper.\r\n\r\n\r\n***\nBe   terse.  "
+      },
+      {
+        "role": "user",
+        "content": "Summarize   this:\n\n\n\n  - item   one\t\t\n  - item two"
+      },
+      {
+        "role": "assistant",
+        "content": "Sure.   Here   it is.\n\n\n---\nDone.   "
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helper.\n\nBe terse."
+      },
+      {
+        "role": "user",
+        "content": "Summarize this:\n\n  - item one\n  - item two"
+      },
+      {
+        "role": "assistant",
+        "content": "Sure. Here it is.\n\nDone."
+      }
+    ],
+    "params": {}
+  }
+}

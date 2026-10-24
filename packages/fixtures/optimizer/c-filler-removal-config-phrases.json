@@ -1,0 +1,25 @@
+{
+  "id": "c-filler-removal-config-phrases",
+  "description": "config phrases replace the catalog list; equal-length phrases keep list order ('um ok' before 'so um'); only the line's first letter is re-capitalised.",
+  "techniques": [
+    "filler-removal"
+  ],
+  "config": {
+    "filler-removal": {
+      "phrases": [
+        "frankly",
+        "um ok",
+        "honestly,",
+        "so um"
+      ]
+    }
+  },
+  "input": {
+    "kind": "text",
+    "text": "Honestly, ok I mean it. FRANKLY the answer.\nfrankly\nso um ok go"
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Ok I mean it. the answer.\n\nso go"
+  }
+}

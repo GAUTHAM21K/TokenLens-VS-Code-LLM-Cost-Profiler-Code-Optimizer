@@ -1,0 +1,48 @@
+{
+  "id": "c-all-rules-catalog-defaults",
+  "description": "All six rule techniques in catalog order with catalog default params (caveman instruction, maxTokens 512).",
+  "techniques": [
+    "whitespace-normalize",
+    "filler-removal",
+    "dedupe-sentences",
+    "cache-prefix-ordering",
+    "caveman-output",
+    "max-output-cap"
+  ],
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Please   summarize this.\n\n\n\nPlease summarize this."
+      },
+      {
+        "role": "system",
+        "content": "You are helpful.  "
+      }
+    ],
+    "params": {
+      "max_tokens": 2000
+    }
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are helpful.  "
+      },
+      {
+        "role": "system",
+        "content": "Respond tersely: no preamble, no restating the question, no filler. Use short fragments and lists when clear."
+      },
+      {
+        "role": "user",
+        "content": "Summarize this.\n"
+      }
+    ],
+    "params": {
+      "max_tokens": 512
+    }
+  }
+}

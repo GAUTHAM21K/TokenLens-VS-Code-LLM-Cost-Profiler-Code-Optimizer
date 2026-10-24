@@ -1,0 +1,15 @@
+{
+  "id": "b-dedupe-sentences-text",
+  "description": "Sentences split at whitespace after .!?; key ignores case, inner whitespace and trailing .!?; first occurrence wins; a line that loses every sentence is removed; empty lines are kept; kept sentences re-join with one space.",
+  "techniques": [
+    "dedupe-sentences"
+  ],
+  "input": {
+    "kind": "text",
+    "text": "Be concise. Use bullet points.\nBe  CONCISE!\n\nAnswer in English. Use bullet points. Cite sources.\nUse bullet points\n\nDone?  Done."
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Be concise. Use bullet points.\n\nAnswer in English. Cite sources.\n\nDone?"
+  }
+}

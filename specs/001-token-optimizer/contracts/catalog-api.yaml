@@ -1,0 +1,440 @@
+openapi: "3.1.0"
+info:
+  title: Token Optimizer Catalog API
+  version: "1.0.0"
+  description: >
+    Read-only catalog API serving providers, models, pricing, phases, strategies,
+    platforms, and prompt templates to the Token Optimizer extension. No write
+    endpoints. No authentication required for reads. Rate-limited at the ingress layer.
+servers:
+  - url: https://catalog.token-optimizer.dev/v1
+    description: Production
+
+paths:
+  /catalog:
+    get:
+      operationId: getCatalogSnapshot
+      summary: Full catalog snapshot
+      description: >
+        Returns the complete catalog as a single JSON object. The response includes
+        a monotonically-incrementing version number and an ETag. The client SHOULD
+        send If-None-Match on subsequent requests; the server returns 304 if unchanged.
+      parameters:
+        - name: If-None-Match
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Full catalog payload
+          headers:
+            ETag:
+              schema:
+                type: string
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=3600"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CatalogSnapshot"
+        "304":
+          description: Not Modified (ETag matched)
+        "503":
+          description: Service unavailable (use bundled snapshot)
+
+  /catalog/{collection}:
+    get:
+      operationId: getCatalogCollection
+      summary: Single collection
+      description: >
+        Returns all documents from the named collection that are safe to serve
+        (e.g., strategies filtered to reviewStatus=approved).
+      parameters:
+        - name: collection
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [providers, models, pricing, phases, strategies, platforms, prompt_templates]
+        - name: If-None-Match
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Collection payload
+          headers:
+            ETag:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [collection, version, items]
+                properties:
+                  collection:
+                    type: string
+                  version:
+                    type: integer
+                  items:
+                    type: array
+                    items: {}
+        "304":
+          description: Not Modified
+        "404":
+          description: Unknown collection name
+
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ok]
+                  catalogVersion:
+                    type: integer
+                  dbConnected:
+                    type: boolean
+
+components:
+  schemas:
+    CatalogSnapshot:
+      type: object
+      required: [version, schemaVersion, publishedAt, providers, models, pricing, phases, strategies, platforms, promptTemplates]
+      properties:
+        version:
+          type: integer
+          description: Monotonically incrementing catalog version
+        schemaVersion:
+          type: string
+          example: "1.0"
+        publishedAt:
+          type: string
+          format: date-time
+        providers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Provider"
+        models:
+          type: array
+          items:
+            $ref: "#/components/schemas/Model"
+        pricing:
+          type: array
+          items:
+            $ref: "#/components/schemas/Pricing"
+        phases:
+          type: array
+          items:
+            $ref: "#/components/schemas/Phase"
+        strategies:
+          type: array
+          description: Only reviewStatus=approved entries
+          items:
+            $ref: "#/components/schemas/Strategy"
+        platforms:
+          type: array
+          items:
+            $ref: "#/components/schemas/Platform"
+        promptTemplates:
+          type: array
+          items:
+            $ref: "#/components/schemas/PromptTemplate"
+
+    Provider:
+      type: object
+      required: [id, label, adapterType, baseUrl, keyFormatHint, enabled]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        adapterType:
+          type: string
+          enum: [anthropic, openai, google, mistral, openai-compatible]
+        baseUrl:
+          type: string
+          format: uri
+        listModelsEndpoint:
+          type: string
+        keyFormatHint:
+          type: string
+        enabled:
+          type: boolean
+
+    Model:
+      type: object
+      required: [id, providerId, label, contextWindow, maxOutput, tier, supportsCaching, supportsBatch, supportsStructuredOutput, tokenizer, status, addedAt]
+      properties:
+        id:
+          type: string
+        providerId:
+          type: string
+        label:
+          type: string
+        contextWindow:
+          type: integer
+        maxOutput:
+          type: integer
+        tier:
+          type: string
+          enum: [economy, standard, advanced, frontier]
+        supportsCaching:
+          type: boolean
+        supportsBatch:
+          type: boolean
+        supportsStructuredOutput:
+          type: boolean
+        tokenizer:
+          type: object
+          required: [kind]
+          properties:
+            kind:
+              type: string
+              enum: [tiktoken, anthropic-endpoint, google-endpoint, char-approx]
+            name:
+              type: string
+        status:
+          type: string
+          enum: [active, deprecated]
+        addedAt:
+          type: string
+          format: date-time
+
+    Pricing:
+      type: object
+      required: [modelId, currency, inputPerMTok, outputPerMTok, effectiveFrom, sourceUrl, verifiedAt]
+      properties:
+        modelId:
+          type: string
+        currency:
+          type: string
+          enum: [USD]
+        inputPerMTok:
+          type: number
+        outputPerMTok:
+          type: number
+        cachedInputPerMTok:
+          type: number
+        cacheWriteMultiplier:
+          type: number
+        batchDiscount:
+          type: number
+        effectiveFrom:
+          type: string
+          format: date-time
+        sourceUrl:
+          type: string
+          format: uri
+        verifiedAt:
+          type: string
+          format: date-time
+
+    Phase:
+      type: object
+      required: [id, name, description, track, sortOrder, defaultParams]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        track:
+          type: string
+          enum: [build, runtime]
+        sortOrder:
+          type: integer
+        archetypes:
+          type: array
+          items:
+            type: string
+        defaultParams:
+          type: object
+          description: Low/expected/high defaults for calls, tokensPerCall, retries, volumeMultiplier
+        paramHints:
+          type: object
+          additionalProperties:
+            type: string
+        cacheablePrefix:
+          type: number
+        agentRole:
+          type: string
+
+    Strategy:
+      type: object
+      required: [id, name, group, targets, summary, applicability, savings, conflicts, requires, preview, implementation, reviewStatus, version]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        group:
+          type: string
+          enum: [prompt-efficiency, caching, model-strategy, build-practices, batching, output-control]
+        targets:
+          type: array
+          items:
+            type: string
+            enum: [build, runtime]
+        summary:
+          type: string
+        applicability:
+          type: object
+          description: Declarative predicate tree evaluated against ProjectProfile
+        reasonTemplate:
+          type: string
+        preconditions:
+          type: array
+          items:
+            type: string
+        savings:
+          type: object
+          required: [min, max, unit, appliesTo, basis]
+          properties:
+            min:
+              type: number
+            max:
+              type: number
+            unit:
+              type: string
+              enum: [percent]
+            appliesTo:
+              type: string
+              enum: [input, output, total]
+            basis:
+              type: string
+            sourceUrl:
+              type: string
+        conflicts:
+          type: array
+          items:
+            type: string
+        requires:
+          type: array
+          items:
+            type: string
+        preview:
+          type: object
+        implementation:
+          type: object
+        reviewStatus:
+          type: string
+          enum: [approved]
+          description: Only approved strategies are returned by the API
+        reviewedBy:
+          type: string
+        reviewedAt:
+          type: string
+          format: date-time
+        version:
+          type: integer
+
+    Platform:
+      type: object
+      required: [id, label, detect, artifactTargets, docsUrl, verifiedAt]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        detect:
+          type: object
+          properties:
+            appNames:
+              type: array
+              items:
+                type: string
+            uriSchemes:
+              type: array
+              items:
+                type: string
+            markerFiles:
+              type: array
+              items:
+                type: string
+        artifactTargets:
+          type: array
+          items:
+            type: object
+            required: [kind, layout, pathTemplate, format, defaultEnabled]
+            properties:
+              kind:
+                type: string
+                enum: [command, prompt, rule, instruction, skill]
+              layout:
+                type: string
+                enum: [file, directory]
+              defaultEnabled:
+                type: boolean
+              pathTemplate:
+                type: string
+              format:
+                type: string
+                enum: [markdown, yaml, json]
+              frontmatterTemplate:
+                type: string
+        isDefault:
+          type: boolean
+        agentInvocation:
+          type: object
+          required: [mechanisms, verifiedAt]
+          properties:
+            mechanisms:
+              type: array
+              items:
+                type: object
+                required: [kind]
+                properties:
+                  kind:
+                    type: string
+                    enum: [lm-edit, chat-handoff, clipboard]
+                  vendor:
+                    type: string
+                  family:
+                    type: string
+                  commandId:
+                    type: string
+                  argsTemplate:
+                    type: object
+                    additionalProperties:
+                      type: string
+            verifiedAt:
+              type: string
+              format: date-time
+        docsUrl:
+          type: string
+          format: uri
+        verifiedAt:
+          type: string
+          format: date-time
+
+    PromptTemplate:
+      type: object
+      required: [id, version, purpose, template, outputSchemaRef, active]
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+        purpose:
+          type: string
+          enum: [enhance, profile-extract, apply-edit, preview, handoff]
+        template:
+          type: string
+        outputSchemaRef:
+          type: string
+        active:
+          type: boolean

@@ -1,0 +1,42 @@
+{
+  "id": "c-filler-removal-messages",
+  "description": "filler-removal rewrites system and user contents only; assistant content is untouched.",
+  "techniques": [
+    "filler-removal"
+  ],
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Please be very brief."
+      },
+      {
+        "role": "user",
+        "content": "Can you please explain recursion? Thanks in advance"
+      },
+      {
+        "role": "assistant",
+        "content": "Please hold on, I am just checking."
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Be brief."
+      },
+      {
+        "role": "user",
+        "content": "Explain recursion?"
+      },
+      {
+        "role": "assistant",
+        "content": "Please hold on, I am just checking."
+      }
+    ],
+    "params": {}
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "b-filler-removal-messages",
+  "description": "System/user contents only (assistant untouched). Equal-length phrases keep list order ('you know' before 'know why'); a phrase ending in ',' is removed with its comma; pre-existing ' ,'/' ?' spacing is fixed only on touched lines; a message emptied by removal keeps content ''.",
+  "techniques": [
+    "filler-removal"
+  ],
+  "config": {
+    "filler-removal": {
+      "phrases": [
+        "you know",
+        "know why",
+        "really",
+        "as such,"
+      ]
+    }
+  },
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You know why, be brief.\nAs such, answer in English."
+      },
+      {
+        "role": "user",
+        "content": "I really think it is ready , right ?\nUntouched line , stays ."
+      },
+      {
+        "role": "assistant",
+        "content": "You know, really."
+      },
+      {
+        "role": "user",
+        "content": "REALLY"
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Why, be brief.\nAnswer in English."
+      },
+      {
+        "role": "user",
+        "content": "I think it is ready, right?\nUntouched line , stays ."
+      },
+      {
+        "role": "assistant",
+        "content": "You know, really."
+      },
+      {
+        "role": "user",
+        "content": ""
+      }
+    ],
+    "params": {}
+  }
+}

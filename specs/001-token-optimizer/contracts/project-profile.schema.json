@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://token-optimizer.dev/schemas/project-profile.json",
+  "title": "ProjectProfile",
+  "description": "Structured output of the Enhance step. Schema-validated by Zod in packages/core/src/profile/schema.ts. This JSON Schema is the canonical reference; the Zod schema is derived from it.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "projectType",
+    "overview",
+    "techStack",
+    "llm",
+    "components",
+    "dataFlow",
+    "phases",
+    "scale",
+    "buildAssumptions",
+    "constraints",
+    "profileVersion",
+    "createdAt"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "Version of this schema, e.g. '1.0'. Used for forward-compatibility checks.",
+      "example": "1.0"
+    },
+    "projectType": {
+      "type": "string",
+      "description": "Short archetype identifier used by the phase builder and strategy applicability engine.",
+      "examples": ["rag-chatbot", "coding-agent", "summariser", "image-pipeline", "data-extraction", "multi-agent-orchestrator"]
+    },
+    "overview": {
+      "type": "string",
+      "description": "Human-readable project overview (1-3 paragraphs). Written by the Enhance LLM call.",
+      "minLength": 20,
+      "maxLength": 4000
+    },
+    "techStack": {
+      "type": "array",
+      "description": "Languages and frameworks detected or declared.",
+      "items": {
+        "type": "object",
+        "required": ["language"],
+        "additionalProperties": false,
+        "properties": {
+          "language": { "type": "string", "examples": ["TypeScript", "Python"] },
+          "framework": { "type": "string", "examples": ["Next.js", "FastAPI", "LangChain"] },
+          "version": { "type": "string" }
+        }
+      }
+    },
+    "llm": {
+      "type": "object",
+      "description": "LLM usage characteristics extracted from the project description. These fields drive phase derivation and strategy applicability predicates.",
+      "required": ["providers", "usesRag", "usesAgents", "avgPromptTokens", "avgOutputTokens"],
+      "additionalProperties": false,
+      "properties": {
+        "providers": {
+          "type": "array",
+          "description": "Provider ids referenced in this project.",
+          "items": { "type": "string" },
+          "minItems": 0
+        },
+        "usesRag": {
+          "type": "boolean",
+          "description": "True if the project uses retrieval-augmented generation."
+        },
+        "usesAgents": {
+          "type": "boolean",
+          "description": "True if the project uses autonomous LLM agents."
+        },
+        "agentCount": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of distinct agent roles, if usesAgents is true."
+        },
+        "avgPrefixTokens": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Average number of tokens that are stable prefix content (enables cache-prefix strategies). Required for caching strategy applicability."
+        },
+        "avgPromptTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Average total input token count per LLM call (including system prompt, context, and user message)."
+        },
+        "avgOutputTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Average output token count per LLM call."
+        },
+        "avgConversationTurns": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Average number of turns in a multi-turn conversation, if applicable."
+        },
+        "usesStructuredOutput": {
+          "type": "boolean",
+          "description": "True if the project extracts structured JSON from LLM responses."
+        },
+        "usesBatchProcessing": {
+          "type": "boolean",
+          "description": "True if the project uses or could benefit from batch API calls."
+        },
+        "usesFunctionCalling": {
+          "type": "boolean",
+          "description": "True if the project uses tool/function calling."
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "description": "Major architectural components of the project.",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "llmRole": {
+            "type": "string",
+            "description": "How this component interacts with LLMs, if at all.",
+            "examples": ["generates prompts", "post-processes responses", "orchestrates agents"]
+          }
+        }
+      }
+    },
+    "dataFlow": {
+      "type": "string",
+      "description": "Prose description of how data flows through the system, particularly the LLM call paths.",
+      "minLength": 10,
+      "maxLength": 2000
+    },
+    "phases": {
+      "type": "array",
+      "description": "BUILD and RUNTIME phases proposed by Enhance and verified or edited by the user (FR-052). They drive estimation and strategy pre-selection.",
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "required": ["id", "phaseTypeId", "track", "name", "source", "confirmed"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1, "maxLength": 64 },
+          "phaseTypeId": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "track": { "enum": ["build", "runtime"] },
+          "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "source": { "enum": ["llm", "user", "taxonomy-suggestion"] },
+          "confirmed": { "type": "boolean" }
+        }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "description": "Runtime scale assumptions used by the estimation engine for RUNTIME track calculations.",
+      "required": ["requestsPerDay"],
+      "additionalProperties": false,
+      "properties": {
+        "requestsPerDay": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Expected number of LLM-touching requests per day at baseline load."
+        },
+        "peakMultiplier": {
+          "type": "number",
+          "minimum": 1.0,
+          "default": 2.0,
+          "description": "Peak traffic multiplier applied to requestsPerDay for the 'high' cost range."
+        },
+        "usersPerDay": {
+          "type": "number",
+          "minimum": 1
+        },
+        "sessionsPerUserPerDay": {
+          "type": "number",
+          "minimum": 1,
+          "default": 1
+        },
+        "monthlyDays": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31,
+          "default": 22,
+          "description": "Working days per month used for monthly cost projection."
+        }
+      }
+    },
+    "buildAssumptions": {
+      "type": "object",
+      "description": "BUILD track assumptions used by the estimation engine.",
+      "required": ["teamSize", "sprintWeeks", "iterationsPerFeature"],
+      "additionalProperties": false,
+      "properties": {
+        "teamSize": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of developers using AI coding assistance."
+        },
+        "sprintWeeks": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total weeks of AI-assisted development planned."
+        },
+        "iterationsPerFeature": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Average number of AI-assisted iterations per feature or component."
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "description": "Known constraints, e.g. latency SLAs, compliance requirements, context window limits.",
+      "items": { "type": "string" }
+    },
+    "profileVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonically incrementing version number. Each Enhance run produces profileVersion + 1."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when this profile version was created."
+    },
+    "finalizedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the user marked this version as final. Absence means still draft."
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0",
+  "projectType": "rag-chatbot",
+  "overview": "TypeScript-based RAG chatbot with hybrid search and streaming LLM responses.",
+  "techStack": [
+    {
+      "language": "typescript",
+      "framework": "express",
+      "version": "5.0.0"
+    }
+  ],
+  "llm": {
+    "providers": [
+      "anthropic",
+      "openai"
+    ],
+    "usesRag": true,
+    "usesAgents": false,
+    "avgPrefixTokens": 1500,
+    "avgPromptTokens": 1800,
+    "avgOutputTokens": 600,
+    "usesStructuredOutput": true
+  },
+  "components": [
+    {
+      "name": "QueryProcessor",
+      "description": "Embeds questions and fetches vector chunks.",
+      "llmRole": "retrieval"
+    },
+    {
+      "name": "AnswerGenerator",
+      "description": "Synthesizes final answer from retrieved context.",
+      "llmRole": "generation"
+    }
+  ],
+  "dataFlow": "User query -> QueryProcessor -> Vector DB -> AnswerGenerator -> Stream to client",
+  "phases": [
+    {
+      "id": "phase-architecture",
+      "phaseTypeId": "architecture",
+      "track": "build",
+      "name": "Architecture & Scaffolding",
+      "source": "llm",
+      "confirmed": true
+    },
+    {
+      "id": "phase-implementation",
+      "phaseTypeId": "implementation",
+      "track": "build",
+      "name": "Feature Implementation",
+      "source": "llm",
+      "confirmed": true
+    },
+    {
+      "id": "phase-query-answering",
+      "phaseTypeId": "query-answering",
+      "track": "runtime",
+      "name": "Runtime Query Processing",
+      "source": "llm",
+      "confirmed": true
+    }
+  ],
+  "scale": {
+    "requestsPerDay": 250,
+    "peakMultiplier": 2.0,
+    "monthlyDays": 22
+  },
+  "buildAssumptions": {
+    "teamSize": 3,
+    "sprintWeeks": 2,
+    "iterationsPerFeature": 4
+  },
+  "constraints": [
+    "Keep latency under 1.5s",
+    "Budget cap $500/month"
+  ],
+  "profileVersion": 1,
+  "createdAt": "2026-10-09T00:00:00.000Z",
+  "finalizedAt": "2026-10-09T00:00:00.000Z"
+}

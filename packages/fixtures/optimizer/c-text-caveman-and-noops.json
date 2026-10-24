@@ -1,0 +1,22 @@
+{
+  "id": "c-text-caveman-and-noops",
+  "description": "For text, caveman-output appends a blank line + instruction; cache-prefix-ordering and max-output-cap are no-ops.",
+  "techniques": [
+    "cache-prefix-ordering",
+    "max-output-cap",
+    "caveman-output"
+  ],
+  "config": {
+    "caveman-output": {
+      "instruction": "Be terse."
+    }
+  },
+  "input": {
+    "kind": "text",
+    "text": "Hi"
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Hi\n\nBe terse."
+  }
+}

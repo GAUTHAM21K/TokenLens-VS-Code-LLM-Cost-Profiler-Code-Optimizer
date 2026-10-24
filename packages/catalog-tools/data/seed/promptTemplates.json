@@ -1,0 +1,41 @@
+[
+  {
+    "id": "enhance-default",
+    "version": 2,
+    "purpose": "enhance",
+    "template": "You are a token-cost analyst. Read the project description and return ONE JSON object: a token optimization profile for this project.\n\nProject:\n{{description}}\n\nPhase taxonomy (use these phase ids and tracks):\n{{phasesTaxonomy}}\n\nProfile shape:\n{{profileShape}}\n\nRules: output only the JSON object (no prose, no markdown fences); use numbers, not strings, for counts and token sizes; estimate realistic values when the description doesn't say.",
+    "outputSchemaRef": "ProjectProfileSchema",
+    "active": true
+  },
+  {
+    "id": "profile-extract-default",
+    "version": 1,
+    "purpose": "profile-extract",
+    "template": "Extract token profile from codebase.\n\nFiles:\n{{workspaceFiles}}\n\nOutput JSON project profile.",
+    "outputSchemaRef": "ProjectProfileSchema",
+    "active": true
+  },
+  {
+    "id": "apply-edit-default",
+    "version": 1,
+    "purpose": "apply-edit",
+    "template": "Apply token optimization strategy {{strategyName}} to code:\n{{codeSnippet}}\n\nOutput JSON EditProposal.",
+    "outputSchemaRef": "EditProposalSchema",
+    "active": true
+  },
+  {
+    "id": "preview-default",
+    "version": 1,
+    "purpose": "preview",
+    "template": "Preview token reduction for strategy {{strategyName}}.\n\nInput:\n{{inputText}}",
+    "active": true
+  },
+  {
+    "id": "compress-default",
+    "version": 1,
+    "purpose": "compress",
+    "outputSchemaRef": null,
+    "active": true,
+    "template": "Rewrite the prompt below using as few tokens as possible while preserving every instruction, constraint, fact and placeholder ({{...}}). Do not answer it. Output only the rewritten prompt.\n\nPrompt:\n{{prompt}}"
+  }
+]

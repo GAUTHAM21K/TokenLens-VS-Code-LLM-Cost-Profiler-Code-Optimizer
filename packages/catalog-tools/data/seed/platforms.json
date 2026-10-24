@@ -1,0 +1,167 @@
+[
+  {
+    "id": "vscode",
+    "label": "Visual Studio Code",
+    "isDefault": true,
+    "detect": {
+      "appNames": [
+        "Visual Studio Code",
+        "Code - OSS",
+        "VSCodium"
+      ],
+      "uriSchemes": [
+        "vscode",
+        "vscode-insiders"
+      ],
+      "markerFiles": [
+        ".vscode/settings.json"
+      ]
+    },
+    "artifactTargets": [
+      {
+        "kind": "instruction",
+        "layout": "file",
+        "defaultEnabled": true,
+        "pathTemplate": ".vscode/token-optimizer.instructions.md",
+        "format": "markdown"
+      },
+      {
+        "kind": "skill",
+        "layout": "directory",
+        "defaultEnabled": true,
+        "pathTemplate": ".vscode/skills/{{strategyId}}",
+        "format": "markdown"
+      }
+    ],
+    "docsUrl": "https://code.visualstudio.com/docs",
+    "verifiedAt": "2026-10-09T00:00:00Z",
+    "agentInvocation": {
+      "mechanisms": [
+        "lm-edit",
+        "chat-handoff",
+        "clipboard"
+      ]
+    }
+  },
+  {
+    "id": "cursor",
+    "label": "Cursor",
+    "isDefault": false,
+    "detect": {
+      "appNames": [
+        "Cursor"
+      ],
+      "uriSchemes": [
+        "cursor"
+      ],
+      "markerFiles": [
+        ".cursorrules",
+        ".cursor"
+      ]
+    },
+    "artifactTargets": [
+      {
+        "kind": "rule",
+        "layout": "file",
+        "defaultEnabled": true,
+        "pathTemplate": ".cursorrules",
+        "format": "markdown"
+      },
+      {
+        "kind": "skill",
+        "layout": "directory",
+        "defaultEnabled": true,
+        "pathTemplate": ".cursor/skills/{{strategyId}}",
+        "format": "markdown"
+      }
+    ],
+    "docsUrl": "https://docs.cursor.com",
+    "verifiedAt": "2026-10-09T00:00:00Z",
+    "agentInvocation": {
+      "mechanisms": [
+        "chat-handoff",
+        "clipboard"
+      ]
+    }
+  },
+  {
+    "id": "windsurf",
+    "label": "Windsurf",
+    "isDefault": false,
+    "detect": {
+      "appNames": [
+        "Windsurf"
+      ],
+      "uriSchemes": [
+        "windsurf"
+      ],
+      "markerFiles": [
+        ".codeium/windsurf"
+      ]
+    },
+    "artifactTargets": [
+      {
+        "kind": "rule",
+        "layout": "file",
+        "defaultEnabled": true,
+        "pathTemplate": ".windsurfrules",
+        "format": "markdown"
+      },
+      {
+        "kind": "skill",
+        "layout": "directory",
+        "defaultEnabled": true,
+        "pathTemplate": ".windsurf/skills/{{strategyId}}",
+        "format": "markdown"
+      }
+    ],
+    "docsUrl": "https://codeium.com/windsurf",
+    "verifiedAt": "2026-10-09T00:00:00Z",
+    "agentInvocation": {
+      "mechanisms": [
+        "clipboard"
+      ]
+    }
+  },
+  {
+    "id": "antigravity",
+    "label": "Antigravity IDE",
+    "isDefault": false,
+    "detect": {
+      "appNames": [
+        "Antigravity"
+      ],
+      "uriSchemes": [
+        "antigravity"
+      ],
+      "markerFiles": [
+        ".agents"
+      ]
+    },
+    "artifactTargets": [
+      {
+        "kind": "rule",
+        "layout": "file",
+        "defaultEnabled": true,
+        "pathTemplate": ".agents/rules/token-optimizer.md",
+        "format": "markdown"
+      },
+      {
+        "kind": "skill",
+        "layout": "directory",
+        "defaultEnabled": true,
+        "pathTemplate": ".agents/skills/{{strategyId}}",
+        "format": "markdown"
+      }
+    ],
+    "docsUrl": "https://antigravity.google.com/docs",
+    "verifiedAt": "2026-10-09T00:00:00Z",
+    "agentInvocation": {
+      "mechanisms": [
+        "lm-edit",
+        "chat-handoff",
+        "clipboard"
+      ]
+    }
+  }
+]

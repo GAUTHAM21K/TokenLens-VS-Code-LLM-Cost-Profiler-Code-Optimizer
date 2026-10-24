@@ -1,0 +1,43 @@
+[
+  {
+    "id": "anthropic",
+    "label": "Anthropic Claude",
+    "adapterType": "anthropic",
+    "baseUrl": "https://api.anthropic.com/v1",
+    "keyFormatHint": "sk-ant-...",
+    "enabled": true
+  },
+  {
+    "id": "openai",
+    "label": "OpenAI",
+    "adapterType": "openai",
+    "baseUrl": "https://api.openai.com/v1",
+    "keyFormatHint": "sk-proj-...",
+    "enabled": true
+  },
+  {
+    "id": "google",
+    "label": "Google Gemini",
+    "adapterType": "google",
+    "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+    "keyFormatHint": "AIzaSy...",
+    "enabled": true
+  },
+  {
+    "id": "mistral",
+    "label": "Mistral AI",
+    "adapterType": "mistral",
+    "baseUrl": "https://api.mistral.ai/v1",
+    "keyFormatHint": "mistral-...",
+    "enabled": true
+  },
+  {
+    "id": "groq",
+    "label": "Groq",
+    "adapterType": "openai-compatible",
+    "baseUrl": "https://api.groq.com/openai/v1",
+    "listModelsEndpoint": "/models",
+    "keyFormatHint": "gsk_...",
+    "enabled": true
+  }
+]

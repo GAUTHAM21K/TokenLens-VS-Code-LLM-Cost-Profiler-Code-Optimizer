@@ -1,0 +1,255 @@
+[
+  {
+    "id": "whitespace-normalize",
+    "name": "Whitespace Normalization",
+    "group": "prompt-efficiency",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Collapse runs of spaces and blank lines, strip trailing whitespace and markdown rule lines.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 1,
+      "maxPercent": 8,
+      "basis": "Whitespace and decorative markdown tokens removed from typical prompts",
+      "appliesTo": "input"
+    },
+    "optimizer": {
+      "mode": "rule",
+      "ruleId": "whitespace-normalize",
+      "order": 10,
+      "affects": "input"
+    },
+    "implementation": {
+      "language": "python",
+      "symbol": "optimize_messages",
+      "integrations": [
+        "agent-middleware",
+        "invoke-wrap"
+      ]
+    },
+    "reviewStatus": "draft",
+    "version": 1
+  },
+  {
+    "id": "filler-removal",
+    "name": "Prompt Compressor (filler removal)",
+    "group": "prompt-efficiency",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Drop politeness, hedging and redundant phrases from a curated list.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 3,
+      "maxPercent": 12,
+      "basis": "Curated filler phrase list applied to conversational prompts",
+      "appliesTo": "input"
+    },
+    "optimizer": {
+      "mode": "rule",
+      "ruleId": "filler-removal",
+      "order": 20,
+      "affects": "input",
+      "params": {
+        "phrases": [
+          "please note that",
+          "it is important to note that",
+          "i would like you to",
+          "could you please",
+          "can you please",
+          "please",
+          "kindly",
+          "basically",
+          "actually",
+          "just",
+          "really",
+          "very",
+          "in order to",
+          "as an ai language model,",
+          "thank you in advance",
+          "thanks in advance"
+        ]
+      }
+    },
+    "implementation": {
+      "language": "python",
+      "symbol": "optimize_messages",
+      "integrations": [
+        "agent-middleware",
+        "invoke-wrap"
+      ]
+    },
+    "reviewStatus": "draft",
+    "version": 1,
+    "applicability": {
+      "path": "llm.avgPromptTokens",
+      "gte": 500
+    },
+    "reasonTemplate": "Prompts average {{value}} tokens; filler phrases are cheap to remove."
+  },
+  {
+    "id": "dedupe-sentences",
+    "name": "Duplicate Sentence Removal",
+    "group": "prompt-efficiency",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Remove repeated sentences and instructions, keeping the first occurrence.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 0,
+      "maxPercent": 10,
+      "basis": "Repeated instructions in long-lived prompt templates",
+      "appliesTo": "input"
+    },
+    "optimizer": {
+      "mode": "rule",
+      "ruleId": "dedupe-sentences",
+      "order": 30,
+      "affects": "input"
+    },
+    "implementation": {
+      "language": "python",
+      "symbol": "optimize_messages",
+      "integrations": [
+        "agent-middleware",
+        "invoke-wrap"
+      ]
+    },
+    "reviewStatus": "draft",
+    "version": 1
+  },
+  {
+    "id": "cache-prefix-ordering",
+    "name": "Cache-friendly Prefix Ordering",
+    "group": "caching",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Move static system instructions and context first so provider prompt caching applies.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 10,
+      "maxPercent": 50,
+      "basis": "Cached-input discount on stable prompt prefixes",
+      "appliesTo": "input",
+      "sourceUrl": "https://www.anthropic.com/pricing"
+    },
+    "optimizer": {
+      "mode": "rule",
+      "ruleId": "cache-prefix-ordering",
+      "order": 40,
+      "affects": "input"
+    },
+    "implementation": {
+      "language": "python",
+      "symbol": "optimize_messages",
+      "integrations": [
+        "agent-middleware",
+        "invoke-wrap"
+      ]
+    },
+    "reviewStatus": "draft",
+    "version": 1,
+    "applicability": {
+      "path": "llm.avgPrefixTokens",
+      "gte": 1024
+    },
+    "reasonTemplate": "Shared prefix of {{value}} tokens qualifies for prompt caching."
+  },
+  {
+    "id": "caveman-output",
+    "name": "Terse Output Instruction",
+    "group": "output-control",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Inject a terse-response system instruction to cut output tokens.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 20,
+      "maxPercent": 60,
+      "basis": "Terse-style instruction reduces verbose completions",
+      "appliesTo": "output"
+    },
+    "optimizer": {
+      "mode": "rule",
+      "ruleId": "caveman-output",
+      "order": 50,
+      "affects": "output",
+      "params": {
+        "instruction": "Respond tersely: no preamble, no restating the question, no filler. Use short fragments and lists when clear."
+      }
+    },
+    "implementation": {
+      "language": "python",
+      "symbol": "optimize_messages",
+      "integrations": [
+        "agent-middleware",
+        "invoke-wrap"
+      ]
+    },
+    "reviewStatus": "draft",
+    "version": 1
+  },
+  {
+    "id": "max-output-cap",
+    "name": "Max Output Cap",
+    "group": "output-control",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Set max_tokens from a configured cap so completions cannot run long.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 0,
+      "maxPercent": 40,
+      "basis": "Bounded completion length on chatty endpoints",
+      "appliesTo": "output"
+    },
+    "optimizer": {
+      "mode": "rule",
+      "ruleId": "max-output-cap",
+      "order": 60,
+      "affects": "output",
+      "params": {
+        "maxTokens": 512
+      }
+    },
+    "implementation": {
+      "language": "python",
+      "symbol": "optimize_messages",
+      "integrations": [
+        "agent-middleware",
+        "invoke-wrap"
+      ]
+    },
+    "reviewStatus": "draft",
+    "version": 1
+  },
+  {
+    "id": "llm-compress",
+    "name": "LLM Prompt Compression",
+    "group": "prompt-efficiency",
+    "targets": [
+      "runtime"
+    ],
+    "summary": "Have the selected model rewrite the prompt to minimal tokens while preserving meaning.",
+    "savings": {
+      "unit": "percent",
+      "minPercent": 20,
+      "maxPercent": 60,
+      "basis": "LLM rewrite of verbose prompts; costs one extra call per optimization",
+      "appliesTo": "input"
+    },
+    "optimizer": {
+      "mode": "llm",
+      "promptTemplateId": "compress-default",
+      "order": 5,
+      "affects": "input"
+    },
+    "reviewStatus": "draft",
+    "version": 1
+  }
+]

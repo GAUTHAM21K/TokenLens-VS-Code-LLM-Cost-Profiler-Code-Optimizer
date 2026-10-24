@@ -1,0 +1,55 @@
+{
+  "id": "b-dedupe-sentences-messages",
+  "description": "Scope is the whole request across all roles in message order; an emptied message keeps its role with content ''; params pass through.",
+  "techniques": [
+    "dedupe-sentences"
+  ],
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a support bot. Answer briefly."
+      },
+      {
+        "role": "user",
+        "content": "Answer briefly.\nWhat is my order status?"
+      },
+      {
+        "role": "assistant",
+        "content": "You are a support bot."
+      },
+      {
+        "role": "user",
+        "content": "What is my order status? Please hurry."
+      }
+    ],
+    "params": {
+      "max_tokens": 100
+    }
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a support bot. Answer briefly."
+      },
+      {
+        "role": "user",
+        "content": "What is my order status?"
+      },
+      {
+        "role": "assistant",
+        "content": ""
+      },
+      {
+        "role": "user",
+        "content": "Please hurry."
+      }
+    ],
+    "params": {
+      "max_tokens": 100
+    }
+  }
+}

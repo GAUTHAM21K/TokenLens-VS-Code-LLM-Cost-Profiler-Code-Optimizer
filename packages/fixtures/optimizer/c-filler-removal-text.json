@@ -1,0 +1,15 @@
+{
+  "id": "c-filler-removal-text",
+  "description": "filler-removal with catalog phrases: longest first, whole-word only (unjustly kept), cleanup only on changed lines, leading comma dropped, first letter re-capitalised, emptied line kept.",
+  "techniques": [
+    "filler-removal"
+  ],
+  "input": {
+    "kind": "text",
+    "text": "Please summarize the report.\nCould you please, kindly list the risks?\nI would like you to be very concise , and clear .\nThe plan is unjustly delayed.\n  Just   do it   now.\nPlease\nNo filler here.  Keep   spacing.\nAs an AI language model, I can help.\nthanks in advance for the help"
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Summarize the report.\nList the risks?\nBe concise, and clear.\nThe plan is unjustly delayed.\nDo it now.\n\nNo filler here.  Keep   spacing.\nI can help.\nfor the help"
+  }
+}

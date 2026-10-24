@@ -1,0 +1,29 @@
+{
+  "id": "b-combo-text",
+  "description": "whitespace-normalize -> filler-removal -> dedupe-sentences -> caveman-output on text, in list order.",
+  "techniques": [
+    "whitespace-normalize",
+    "filler-removal",
+    "dedupe-sentences",
+    "caveman-output"
+  ],
+  "config": {
+    "filler-removal": {
+      "phrases": [
+        "please",
+        "just"
+      ]
+    },
+    "caveman-output": {
+      "instruction": "Be terse."
+    }
+  },
+  "input": {
+    "kind": "text",
+    "text": "Please   summarize the text.\n\n\n\nJust summarize the text.\n---\nKeep it short.   "
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Summarize the text.\n\nKeep it short.\n\nBe terse."
+  }
+}

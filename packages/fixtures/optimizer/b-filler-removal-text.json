@@ -1,0 +1,15 @@
+{
+  "id": "b-filler-removal-text",
+  "description": "Catalog phrase list (no config): longest phrase first, word-bounded and case-insensitive; touched lines get spaces collapsed, space before punctuation dropped, trimmed and re-capitalized; a fully removed line stays as an empty line; untouched lines keep their spacing; 'just' does not match inside 'Justice'.",
+  "techniques": [
+    "filler-removal"
+  ],
+  "input": {
+    "kind": "text",
+    "text": "Could you please summarize the report?\nI would like you to basically keep it short.\nPlease note that the data is very old.\nRead the file please.\nThank you in advance\nJustice is served.\nKeep  these   spaces.\n  kindly check the logs"
+  },
+  "expected": {
+    "kind": "text",
+    "text": "Summarize the report?\nKeep it short.\nThe data is old.\nRead the file.\n\nJustice is served.\nKeep  these   spaces.\ncheck the logs"
+  }
+}

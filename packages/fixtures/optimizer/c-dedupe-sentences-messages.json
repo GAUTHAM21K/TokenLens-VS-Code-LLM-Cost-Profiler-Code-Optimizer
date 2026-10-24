@@ -1,0 +1,50 @@
+{
+  "id": "c-dedupe-sentences-messages",
+  "description": "dedupe-sentences scope is the whole request in message order (all roles); a fully deduplicated message keeps its role with empty content.",
+  "techniques": [
+    "dedupe-sentences"
+  ],
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tutor. Be concise."
+      },
+      {
+        "role": "user",
+        "content": "Be concise. Explain recursion.\nYou are a tutor."
+      },
+      {
+        "role": "assistant",
+        "content": "Explain recursion."
+      },
+      {
+        "role": "user",
+        "content": "Thanks."
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tutor. Be concise."
+      },
+      {
+        "role": "user",
+        "content": "Explain recursion."
+      },
+      {
+        "role": "assistant",
+        "content": ""
+      },
+      {
+        "role": "user",
+        "content": "Thanks."
+      }
+    ],
+    "params": {}
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "presetId": "default",
+  "tiers": {
+    "economy": [
+      {
+        "providerId": "groq",
+        "modelId": "openai/gpt-oss-20b"
+      },
+      {
+        "providerId": "openai",
+        "modelId": "gpt-4o-mini"
+      },
+      {
+        "providerId": "anthropic",
+        "modelId": "claude-3-5-haiku-20241022"
+      }
+    ],
+    "standard": [
+      {
+        "providerId": "groq",
+        "modelId": "openai/gpt-oss-120b"
+      },
+      {
+        "providerId": "openai",
+        "modelId": "gpt-4o"
+      }
+    ],
+    "advanced": [
+      {
+        "providerId": "groq",
+        "modelId": "qwen/qwen3.8-27b"
+      },
+      {
+        "providerId": "anthropic",
+        "modelId": "claude-3-5-sonnet-20241022"
+      }
+    ]
+  },
+  "rules": {
+    "maxCharsForEconomy": 600,
+    "advancedKeywords": [
+      "analyze",
+      "architecture",
+      "debug",
+      "prove",
+      "refactor",
+      "step by step",
+      "trade-offs"
+    ],
+    "needsToolsMinTier": "standard",
+    "defaultTier": "standard"
+  }
+}

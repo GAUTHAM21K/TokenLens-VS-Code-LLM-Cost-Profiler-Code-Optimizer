@@ -1,0 +1,74 @@
+{
+  "id": "b-combo-messages",
+  "description": "filler-removal -> dedupe-sentences (original message order) -> cache-prefix-ordering -> caveman-output -> max-output-cap on a request.",
+  "techniques": [
+    "filler-removal",
+    "dedupe-sentences",
+    "cache-prefix-ordering",
+    "caveman-output",
+    "max-output-cap"
+  ],
+  "config": {
+    "filler-removal": {
+      "phrases": [
+        "kindly",
+        "carefully"
+      ]
+    },
+    "caveman-output": {
+      "instruction": "Be terse."
+    },
+    "max-output-cap": {
+      "maxTokens": 128
+    }
+  },
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Kindly review the diff carefully."
+      },
+      {
+        "role": "system",
+        "content": "Kindly act as a code reviewer."
+      },
+      {
+        "role": "user",
+        "content": "Act as a code reviewer. Find bugs."
+      },
+      {
+        "role": "assistant",
+        "content": "Kindly hold on."
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Kindly act as a code reviewer."
+      },
+      {
+        "role": "system",
+        "content": "Be terse."
+      },
+      {
+        "role": "user",
+        "content": "Review the diff."
+      },
+      {
+        "role": "user",
+        "content": "Act as a code reviewer. Find bugs."
+      },
+      {
+        "role": "assistant",
+        "content": "Kindly hold on."
+      }
+    ],
+    "params": {
+      "max_tokens": 128
+    }
+  }
+}

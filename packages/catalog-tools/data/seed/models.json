@@ -1,0 +1,118 @@
+[
+  {
+    "id": "claude-3-5-sonnet-20241022",
+    "providerId": "anthropic",
+    "label": "Claude 3.5 Sonnet",
+    "contextWindow": 200000,
+    "maxOutput": 8192,
+    "tier": "frontier",
+    "supportsCaching": true,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "anthropic-endpoint",
+      "name": "claude-3-5-sonnet"
+    },
+    "status": "active",
+    "addedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "id": "claude-3-5-haiku-20241022",
+    "providerId": "anthropic",
+    "label": "Claude 3.5 Haiku",
+    "contextWindow": 200000,
+    "maxOutput": 8192,
+    "tier": "economy",
+    "supportsCaching": true,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "anthropic-endpoint",
+      "name": "claude-3-5-haiku"
+    },
+    "status": "active",
+    "addedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "id": "gpt-4o",
+    "providerId": "openai",
+    "label": "GPT-4o",
+    "contextWindow": 128000,
+    "maxOutput": 4096,
+    "tier": "frontier",
+    "supportsCaching": true,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "tiktoken",
+      "name": "o200k_base"
+    },
+    "status": "active",
+    "addedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "id": "gpt-4o-mini",
+    "providerId": "openai",
+    "label": "GPT-4o Mini",
+    "contextWindow": 128000,
+    "maxOutput": 4096,
+    "tier": "economy",
+    "supportsCaching": true,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "tiktoken",
+      "name": "o200k_base"
+    },
+    "status": "active",
+    "addedAt": "2026-10-09T00:00:00Z"
+  },
+  {
+    "id": "openai/gpt-oss-20b",
+    "providerId": "groq",
+    "label": "GPT-OSS 20B (Groq)",
+    "contextWindow": 131072,
+    "maxOutput": 65536,
+    "tier": "economy",
+    "supportsCaching": false,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "char-approx"
+    },
+    "status": "active",
+    "addedAt": "2026-10-12T00:00:00Z"
+  },
+  {
+    "id": "openai/gpt-oss-120b",
+    "providerId": "groq",
+    "label": "GPT-OSS 120B (Groq)",
+    "contextWindow": 131072,
+    "maxOutput": 65536,
+    "tier": "standard",
+    "supportsCaching": false,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "char-approx"
+    },
+    "status": "active",
+    "addedAt": "2026-10-12T00:00:00Z"
+  },
+  {
+    "id": "qwen/qwen3.8-27b",
+    "providerId": "groq",
+    "label": "Qwen 3.8 27B (Groq, preview)",
+    "contextWindow": 131072,
+    "maxOutput": 16384,
+    "tier": "advanced",
+    "supportsCaching": false,
+    "supportsBatch": true,
+    "supportsStructuredOutput": true,
+    "tokenizer": {
+      "kind": "char-approx"
+    },
+    "status": "active",
+    "addedAt": "2026-10-12T00:00:00Z"
+  }
+]

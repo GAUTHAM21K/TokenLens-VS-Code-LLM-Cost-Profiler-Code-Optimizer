@@ -1,0 +1,44 @@
+{
+  "id": "cache-prefix-then-caveman",
+  "description": "cache-prefix-ordering stably moves system messages first; caveman-output appends a separate system directive without changing the cached prefix.",
+  "techniques": [
+    "cache-prefix-ordering",
+    "caveman-output"
+  ],
+  "config": {
+    "caveman-output": {
+      "instruction": "Be terse."
+    }
+  },
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Question?"
+      },
+      {
+        "role": "system",
+        "content": "You are helpful."
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are helpful."
+      },
+      {
+        "role": "system",
+        "content": "Be terse."
+      },
+      {
+        "role": "user",
+        "content": "Question?"
+      }
+    ],
+    "params": {}
+  }
+}

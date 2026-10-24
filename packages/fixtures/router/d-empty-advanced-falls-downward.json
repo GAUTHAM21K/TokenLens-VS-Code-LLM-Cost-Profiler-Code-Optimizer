@@ -1,0 +1,58 @@
+{
+  "id": "d-empty-advanced-falls-downward",
+  "description": "Empty advanced tier (nothing above) falls back downward to standard.",
+  "config": {
+    "presetId": "default",
+    "tiers": {
+      "economy": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-20b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o-mini"
+        },
+        {
+          "providerId": "anthropic",
+          "modelId": "claude-3-5-haiku-20241022"
+        }
+      ],
+      "standard": [
+        {
+          "providerId": "groq",
+          "modelId": "openai/gpt-oss-120b"
+        },
+        {
+          "providerId": "openai",
+          "modelId": "gpt-4o"
+        }
+      ],
+      "advanced": []
+    },
+    "rules": {
+      "maxCharsForEconomy": 600,
+      "advancedKeywords": [
+        "analyze",
+        "architecture",
+        "debug",
+        "prove",
+        "refactor",
+        "step by step",
+        "trade-offs"
+      ],
+      "needsToolsMinTier": "standard",
+      "defaultTier": "standard"
+    }
+  },
+  "input": {
+    "kind": "text",
+    "text": "Please analyze this."
+  },
+  "needsTools": false,
+  "expected": {
+    "tier": "standard",
+    "model": "openai/gpt-oss-120b",
+    "provider": "groq"
+  }
+}

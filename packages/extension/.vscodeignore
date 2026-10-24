@@ -1,0 +1,17 @@
+.vscode/**
+src/**
+tests/**
+scripts/**
+tsconfig.json
+vitest.config.ts
+*.tsbuildinfo
+**/*.d.ts
+**/*.map
+node_modules/**
+.vscode-test/**
+
+# local-only temp scripts
+**/*.tmp.mts
+*.vsix
+unpacked/**
+**/__pycache__/**

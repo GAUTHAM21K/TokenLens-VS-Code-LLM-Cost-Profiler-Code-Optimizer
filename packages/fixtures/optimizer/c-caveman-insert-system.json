@@ -1,0 +1,49 @@
+{
+  "id": "c-caveman-insert-system",
+  "description": "caveman-output inserts a system message at index 0 when none exists; max-output-cap sets max_tokens when absent.",
+  "techniques": [
+    "caveman-output",
+    "max-output-cap"
+  ],
+  "config": {
+    "caveman-output": {
+      "instruction": "Be terse."
+    },
+    "max-output-cap": {
+      "maxTokens": 100
+    }
+  },
+  "input": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello"
+      }
+    ]
+  },
+  "expected": {
+    "kind": "messages",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Be terse."
+      },
+      {
+        "role": "user",
+        "content": "Hi"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello"
+      }
+    ],
+    "params": {
+      "max_tokens": 100
+    }
+  }
+}

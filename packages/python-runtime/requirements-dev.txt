@@ -1,0 +1,4 @@
+# Test/lint toolchain for packages/python-runtime (CI python job). LangChain is deliberately not
+# installed here so the suite proves `import ai_optimizer` works without it.
+pytest==9.1.1
+ruff==0.17.0
